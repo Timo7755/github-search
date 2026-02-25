@@ -50,8 +50,8 @@ const UserSearch = () => {
 
   return (
     <>
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="dropdown-wrapper">
+      <form className="relative flex flex-col gap-4" onSubmit={handleSubmit}>
+        <div className="relative w-full">
           <input
             type="text"
             placeholder="Enter a username..."
@@ -61,6 +61,7 @@ const UserSearch = () => {
               setUsername(val);
               setShowSuggestions(val.length > 1);
             }}
+            className="w-full px-4 py-3.5 text-base border border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50/50 dark:bg-gray-700/50 placeholder:text-gray-400 dark:placeholder:text-gray-500 text-gray-900 dark:text-gray-100 transition-all duration-200 focus:border-primary-400 dark:focus:border-primary-500 focus:bg-white dark:focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500/25 focus:shadow-sm"
           />
           {showSuggestions && suggestions?.length > 0 && (
             <SuggestionDropdown
@@ -87,11 +88,22 @@ const UserSearch = () => {
           )}
         </div>
 
-        <button type="submit">Search</button>
+        <button
+          type="submit"
+          className="w-full py-3.5 px-5 text-base font-semibold text-white bg-primary-600 dark:bg-primary-500 rounded-xl shadow-md shadow-primary-600/25 hover:bg-primary-700 dark:hover:bg-primary-600 hover:shadow-lg active:scale-[0.98] transition-all duration-200 cursor-pointer"
+        >
+          Search
+        </button>
       </form>
 
-      {isLoading && <p className="status">Loading...</p>}
-      {isError && <p className="status error">{error.message}</p>}
+      {isLoading && (
+        <p className="mt-6 text-sm font-medium text-gray-500 dark:text-gray-400">Loading...</p>
+      )}
+      {isError && (
+        <p className="mt-6 text-sm font-medium text-red-600 dark:text-red-400">
+          {error?.message}
+        </p>
+      )}
 
       {data && <UserCard user={data} />}
 
